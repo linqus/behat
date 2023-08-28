@@ -3,7 +3,7 @@ Feature: Search
     As a website user
     I need to be able to search for products
 
-
+    @javascript
     Scenario:
         Given I am on "/"
         When I fill in "searchTerm" with "Samsung"

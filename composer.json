@@ -15,7 +15,8 @@
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "behat/mink-goutte-driver": "*",
-        "behat/mink-extension": "^2.3"
+        "behat/mink-extension": "^2.3",
+        "behat/mink-selenium2-driver": "^1.6"
     },
     "autoload": {
         "psr-0": {
