@@ -12,4 +12,3 @@ Feature: Authentication
         And I press "Login"
         #And print last response
         Then I should see "Logout"
-    

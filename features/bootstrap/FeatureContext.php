@@ -6,6 +6,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 require_once __DIR__.'/../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
 
@@ -14,8 +15,8 @@ require_once __DIR__.'/../../vendor/phpunit/phpunit/src/Framework/Assert/Functio
  */
 class FeatureContext extends RawMinkContext implements Context, SnippetAcceptingContext
 {
+    use \Behat\Symfony2Extension\Context\KernelDictionary;
 
-    private static $container;
 
     /**
      * Initializes context.
@@ -28,19 +29,6 @@ class FeatureContext extends RawMinkContext implements Context, SnippetAccepting
     {
     }
 
-    /**
-     * @BeforeSuite
-     */
-    public static function bootstrapSymfony()
-    {
-        require __DIR__.'/../../app/autoload.php';
-        require __DIR__.'/../../app/AppKernel.php';
-
-        $kernel = new AppKernel('test', true);
-        $kernel->boot();
-
-        self::$container = $kernel->getContainer();
-    }
 
     /**
      * @When I fill in the search box with :term
@@ -74,7 +62,7 @@ class FeatureContext extends RawMinkContext implements Context, SnippetAccepting
         $user->setPlainPassword($password);
         $user->setRoles(['ROLE_ADMIN']);
 
-        $em = self::$container->get('doctrine')->getManager();
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $em->persist($user);
         $em->flush();
     }
@@ -84,9 +72,9 @@ class FeatureContext extends RawMinkContext implements Context, SnippetAccepting
      */
     public function clearData()
     {
-        $em = self::$container->get('doctrine')->getManager();
-        $em->createQuery('DELETE FROM AppBundle:Product')->execute();
-        $em->createQuery('DELETE FROM AppBundle:User')->execute();
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $purger = new ORMPurger($em);
+        $purger->purge();
     }
 
     /**
