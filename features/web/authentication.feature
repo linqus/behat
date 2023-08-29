@@ -3,4 +3,13 @@ Feature: Authentication
     As an admin
     I need to be able to login and logout
 
+    Scenario: Loggin in
+        Given there is an admin user "admin2" with password "admin"
+        And I am on "/"
+        When I follow "Login"
+        And I fill in "Username" with "admin2"
+        And I fill in "Password" with "admin"
+        And I press "Login"
+        #And print last response
+        Then I should see "Logout"
     
