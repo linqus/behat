@@ -4,15 +4,14 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\MinkContext;
+use Behat\MinkExtension\Context\RawMinkContext;
 
 require_once __DIR__.'/../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
-
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext implements Context, SnippetAcceptingContext
+class FeatureContext extends RawMinkContext implements Context, SnippetAcceptingContext
 {
     /**
      * Initializes context.
@@ -21,38 +20,37 @@ class FeatureContext implements Context, SnippetAcceptingContext
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-
-    private string $output;
-
     public function __construct()
     {
     }
 
     /**
-     * @Given I have a file named :file
+     * @When I fill in the search box with :term
      */
-    public function iHaveAFileNamed($file)
+    public function iFillInTheSearchBoxWith($term)
     {
-        touch($file);
+        $searchBox = $this->assertSession()
+            ->elementExists('css', 'input[name="searchTerm"]');
+
+        $searchBox->setValue($term);
     }
 
     /**
-     * @When I run :command
+     * @When I press the search button
      */
-    public function iRun($command)
+    public function iPressTheSearchButton()
     {
-        $this->output = shell_exec($command);
+        $button = $this->assertSession()
+            ->elementExists('css', '#search_submit');
+
+        $button->press();
     }
 
     /**
-     * @Then I should see :string in the output
+     * @return \Behat\Mink\Element\DocumentElement
      */
-    public function iShouldSeeInTheOutput($string)
+    private function getPage()
     {
-        assertContains(
-            $string,
-            $this->output,
-            sprintf('Did not see "%s" in output "%s"', $string, $this->output)
-        );
+        return $this->getSession()->getPage();
     }
 }
