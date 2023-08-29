@@ -5,4 +5,9 @@ default:
             base_url: http://localhost:8000
             goutte: ~
             selenium2: ~
-            browser_name: chrome
+            
+    suites:
+        default:
+            contexts: 
+                - FeatureContext
+                #- Behat\MinkExtension\Context\MinkContext
