@@ -10,5 +10,11 @@ default:
         default:
             contexts: 
                 - FeatureContext
-                - CommandLineProcessContext
                 - Behat\MinkExtension\Context\MinkContext
+            paths:
+                - features/web
+
+        commands:
+            contexts:
+                - CommandLineProcessContext
+            paths: [features/commands]
