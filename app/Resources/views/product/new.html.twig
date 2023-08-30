@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+        {{ message|default  }}
+
+        <form action="{{ path('new_product') }}" method="POST">
+            <label for="article-name">Name</label> <input id='article-name' type="text" name="name"></input>
+            <label for="article-price">Price</label> <input id='article-price' type="text" name="price"></input>
+            <label for="article-description">Description</label> <input id='article-description' type="textrea" name="description"></input>
+            <button type="submit" class="btn btn-primary pull-right" name="save">Save</button>
+        </form>
+
+
+{% endblock %}
