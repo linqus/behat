@@ -5,8 +5,10 @@ default:
             base_url: http://localhost:8000
             goutte: ~
             selenium2: ~
+            show_cmd: '"/Program Files/Google/Chrome/Application/chrome.exe" %s'
 
         Behat\Symfony2Extension: ~
+            
             
     suites:
         default:
