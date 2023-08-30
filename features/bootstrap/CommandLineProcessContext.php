@@ -9,7 +9,7 @@ require_once __DIR__.'/../../vendor/phpunit/phpunit/src/Framework/Assert/Functio
 class CommandLineProcessContext implements Context, SnippetAcceptingContext
 {
 
-    private string $output;
+    private $output;
     /**
      * @Given I have a file named :filename
      */
