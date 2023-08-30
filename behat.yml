@@ -3,7 +3,9 @@ default:
 
         Behat\MinkExtension:
             base_url: http://localhost:8000
-            goutte: ~
+            goutte: 
+                guzzle_parameters:
+                    verify: false
             selenium2: ~
             show_cmd: '"/Program Files/Google/Chrome/Application/chrome.exe" %s'
 
