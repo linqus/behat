@@ -1,15 +1,20 @@
-{% extends 'layout.html.twig' %}
+    <form action="{{ path('new_product') }}" method="POST">
+        <fieldset>
+            <legend>New Product</legend>
 
-{% block body %}
+            <div class="form-group">
+                <label for="article-name">Name</label>
+                <input type="text" class="form-control" id="article-name" name="name" />
+            </div>
+            <div class="form-group">
+                <label for="article-price">Price</label>
+                <input type="text" class="form-control" id="article-price" name="price" />
+            </div>
+            <div class="form-group">
+                <label for="article-body">Description</label>
+                <textarea class="form-control" id="article-body" name="description"></textarea>
+            </div>
+        </fieldset>
 
-        {{ message|default  }}
-
-        <form action="{{ path('new_product') }}" method="POST">
-            <label for="article-name">Name</label> <input id='article-name' type="text" name="name"></input>
-            <label for="article-price">Price</label> <input id='article-price' type="text" name="price"></input>
-            <label for="article-description">Description</label> <input id='article-description' type="textrea" name="description"></input>
-            <button type="submit" class="btn btn-primary pull-right" name="save">Save</button>
-        </form>
-
-
-{% endblock %}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
